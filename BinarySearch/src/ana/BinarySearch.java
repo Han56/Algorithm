@@ -26,7 +26,6 @@ public class BinarySearch {
         Scanner scan = new Scanner(System.in);
 
         ArrayList<Integer> list=new ArrayList<Integer>();
-        list.clear();
         while (scan.hasNextInt()){
             list.add(scan.nextInt());
         }
