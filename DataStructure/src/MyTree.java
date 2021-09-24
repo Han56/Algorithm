@@ -188,6 +188,26 @@ public class MyTree {
         return root;
     }
 
+    /*
+    * leetcode 700 :二叉搜索树中的搜索
+    * */
+    public static TreeNode searchBST(TreeNode root,int val){
+        if (root==null)
+            return root;
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            TreeNode node = stack.poll();
+            if (node.val==val)
+                return node;
+            if (node.left!=null)
+                stack.push(node.left);
+            if (node.right!=null)
+                stack.push(node.right);
+        }
+        return new TreeNode();
+    }
+
 
     public static void main(String[] args) {
         TreeNode treeA = new TreeNode(5);
