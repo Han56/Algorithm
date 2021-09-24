@@ -1,3 +1,5 @@
+import sun.reflect.generics.tree.Tree;
+
 import java.sql.Array;
 import java.util.*;
 
@@ -98,7 +100,7 @@ public class MyTree {
     }
 
     /*
-    * 层次遍历
+    * 层次遍历（迭代法）
     * */
     public static List<List<Integer>> levelOrder(TreeNode root){
         Queue<TreeNode> que = new LinkedList<>();
@@ -165,7 +167,26 @@ public class MyTree {
         return true;
     }
 
-
+    /*
+    * 翻转二叉树：与对称树相似
+    * */
+    public static TreeNode invertTree(TreeNode root){
+        if (root == null)
+            return root;
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode n = stack.poll();
+            TreeNode left = n.left;
+            n.left = n.right;
+            n.right = left;
+            if (n.left != null)
+                stack.push(n.left);
+            if (n.right != null)
+                stack.push(n.right);
+        }
+        return root;
+    }
 
 
     public static void main(String[] args) {
