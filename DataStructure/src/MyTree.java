@@ -205,7 +205,38 @@ public class MyTree {
             if (node.right!=null)
                 stack.push(node.right);
         }
-        return new TreeNode();
+        return null;
+    }
+
+    /*
+    * leetcode 701：二叉搜索树中的插入操作
+    * */
+    public static TreeNode insertIntoBST(TreeNode root,int val){
+        if (root==null){
+            root = insertFunc(root,val);
+        }
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        while (!stack.isEmpty()){
+            TreeNode n =stack.poll();
+            if (n.val<val){
+                TreeNode right = n.right;
+                if (n.right==null)
+                    n.right = insertFunc(n,val);
+                else
+                    stack.push(right);
+            }else {
+                TreeNode left = n.left;
+                if (n.left==null)
+                    n.left = insertFunc(n,val);
+                else
+                    stack.push(n.left);
+            }
+        }
+        return root;
+    }
+    public static TreeNode insertFunc(TreeNode node,int val){
+        node = new TreeNode(val);return node;
     }
 
 
