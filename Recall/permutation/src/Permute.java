@@ -30,7 +30,7 @@ public class Permute {
     public static void backtrack(int[] nums,LinkedList<Integer> track){
         //结束条件
         if (nums.length == track.size()){
-            results.add(track);
+            results.add(new LinkedList(track));
             return;
         }
         for (int num : nums) {
