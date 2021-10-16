@@ -100,7 +100,7 @@ public class MyTree {
     }
 
     /*
-    * 层次遍历（迭代法）
+    * 层次遍历（迭代法）（自上而下遍历）
     * */
     public static List<List<Integer>> levelOrder(TreeNode root){
         Queue<TreeNode> que = new LinkedList<>();
@@ -123,6 +123,30 @@ public class MyTree {
         return return_List;
     }
 
+    /*
+    * 层次遍历（自下而上遍历）
+    * */
+    public static List<List<Integer>> levelOrderReverse(TreeNode root){
+        Queue<TreeNode> que = new LinkedList<>();
+        if (root!=null) que.offer(root);
+        List<List<Integer>> list = new ArrayList<>();
+        while (!que.isEmpty()){
+            int size = que.size();
+            List<Integer> list1 = new ArrayList<>();
+            for (int i=0;i<size;i++){
+                TreeNode node = que.peek();
+                que.poll();
+                list1.add(node.val);
+                if (node.left!=null)
+                    que.offer(node.left);
+                if (node.right!=null)
+                    que.offer(node.right);
+            }
+            list.add(list1);
+        }
+        Collections.reverse(list);
+        return list;
+    }
     /*
     * 通过层次遍历的逻辑，实现二叉树最大深度
     * */
@@ -239,6 +263,80 @@ public class MyTree {
         node = new TreeNode(val);return node;
     }
 
+    /*
+    * LeetCode98 验证二叉搜索树通过BST中序遍历必然有序的特点判断
+    * */
+    public static boolean isValidBST(TreeNode root){
+        if(root==null)
+            return false;
+        if(root.left==null&&root.right==null)
+            return true;
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            TreeNode n = stack.poll();
+            if(n.left!=null){
+                if(n.left.val>n.val||n.left.val==n.val)
+                    return false;
+                stack.push(n.left);
+            }
+            if(n.right!=null){
+                if(n.right.val<n.val||n.val==n.right.val)
+                    return false;
+                stack.push(n.right);
+            }
+        }
+        return true;
+    }
+
+    /*
+    * LeetCode111 二叉树最小深度
+    * */
+    public static int treeMinDepth(TreeNode root){
+        if (root==null)
+            return 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int depth = 0;
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            depth++;
+            for (int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+                if (node.left==null&&node.right==null)
+                    return depth;
+                if (node.left!=null)
+                    queue.offer(node.left);
+                if (node.right!=null)
+                    queue.offer(node.right);
+            }
+        }
+        return depth;
+    }
+
+    /*
+    * LeetCode 236 二叉树最近公共祖先（递归）
+    * */
+    public static TreeNode lowestCommonAncestor(TreeNode root,TreeNode p,TreeNode q){
+        //base case
+        if (root==null)
+            return null;
+        if (root==p||root==q)
+            return root;
+
+        //后序遍历递归框架
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        //情景一：左右目标都在以root为根的树上
+        if (left!=null&&right!=null)
+            return root;
+        //情景二：左右节点返回空说明没有匹配的目标返回空
+        if (left==null&&right==null)
+            return null;
+        //情景三：左右目标只有一个在root为根的树上
+        return left==null?right:left;
+    }
+
 
     public static void main(String[] args) {
         TreeNode treeA = new TreeNode(5);
@@ -274,6 +372,8 @@ public class MyTree {
         System.out.println();
         System.out.println("二叉树最大深度:"+treeMaxDepth(treeA));
         System.out.println("是否为对称树:"+isSymmetric(treeA));
+        int depth = treeMinDepth(treeA);
+        System.out.println("二叉树最小深度:"+depth);
     }
 
 }
