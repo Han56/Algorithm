@@ -1,10 +1,12 @@
+package combSum;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author han56
- * @description 功能描述【回溯算法】组合总和
+ * @description 功能描述【回溯算法】组合总和2
  * @create 2021/10/17 下午7:39
  */
 public class CombinaSumLC40 {
