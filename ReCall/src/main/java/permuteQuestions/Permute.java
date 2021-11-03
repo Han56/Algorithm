@@ -1,4 +1,4 @@
-import sun.plugin.javascript.navig.Link;
+package permuteQuestions;
 
 import java.util.LinkedList;
 import java.util.List;
