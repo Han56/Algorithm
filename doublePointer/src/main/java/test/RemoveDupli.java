@@ -42,12 +42,38 @@ public class RemoveDupli {
         return left;
     }
 
+    /*
+    * 【双指针问题——快慢指针】颜色分类
+    * */
+    public static int[] colorSort(int[] nums){
+        //base case
+        if (nums.length==1)
+            return nums;
+        int slow=0;
+        for (int color=0;color<3;color++){
+            int fast=slow+1;
+            while (fast< nums.length){
+                if (nums[slow]==color)
+                    slow++;
+                else {
+                    if (nums[fast]==color){
+                        int temp = nums[slow];
+                        nums[slow]=nums[fast];
+                        nums[fast]=temp;slow++;
+                    }
+                }
+                fast++;
+            }
+        }
+        return nums;
+    }
+
     @Test
     public void test(){
-        int[] nums = {0,1,2,4,5,6,7};
-        int val=4;
-        int k = removeElement(nums,val);
-        System.out.println(k);
+        int[] nums = {2,0,1};
+        int[] res = colorSort(nums);
+        for (int i:res)
+            System.out.print(" "+i);
     }
 
 }
