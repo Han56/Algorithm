@@ -26,10 +26,27 @@ public class RemoveDupli {
         return slow+1;
     }
 
+    /*
+    * 【双指针问题——左右指针】力扣27题 移除元素
+    * */
+
+    public static int removeElement(int[] nums,int val){
+        int n = nums.length;
+        int left = 0;
+        for (int right = 0; right < n; right++) {
+            if (nums[right] != val) {
+                nums[left] = nums[right];
+                left++;
+            }
+        }
+        return left;
+    }
+
     @Test
     public void test(){
-        int[] nums = {0,0,1,1,1,2,2,3,3,4};
-        int k = removeDupilcates(nums);
+        int[] nums = {0,1,2,4,5,6,7};
+        int val=4;
+        int k = removeElement(nums,val);
         System.out.println(k);
     }
 
