@@ -68,12 +68,45 @@ public class RemoveDupli {
         return nums;
     }
 
+    /*
+    * 【双指针问题——左右指针】验证回文串
+    * */
+    public static boolean isPalindrome(String s){
+
+        //对字符串s预处理操作
+        s=s.toLowerCase();
+        String s1=s.replaceAll("\\p{Punct}", "");
+        char[] chars = s1.toCharArray();
+        //base case
+        if (chars.length==1){
+            return true;
+        }
+        //算法核心
+        int left=0,right=chars.length-1;
+        while (left<right){
+            if (chars[left]==' ') {
+                left++;
+                continue;
+            }
+            if (chars[right]==' ') {
+                right--;
+                continue;
+            }
+            if (chars[left]!=chars[right])
+                return false;
+            else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+
     @Test
     public void test(){
-        int[] nums = {2,0,1};
-        int[] res = colorSort(nums);
-        for (int i:res)
-            System.out.print(" "+i);
+        String s="A man, a plan, a canal -- Panama";
+        boolean palindrome = isPalindrome(s);
+        System.out.println(palindrome);
     }
 
 }
