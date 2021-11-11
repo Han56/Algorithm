@@ -2,6 +2,11 @@ package test;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author han56
  * @description 功能描述
@@ -102,11 +107,37 @@ public class RemoveDupli {
         return true;
     }
 
+    /*
+    * 数组问题：力扣349题
+    * 两个数组的交集
+    * */
+    public static int[] intersection(int[] nums1,int[] nums2){
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        List<Integer> res=new ArrayList<>();
+        for (int i=0;i< nums1.length;i++){
+            if (i>0&&nums1[i-1]==nums1[i])
+                continue;
+            for (int k : nums2) {
+                if (k == nums1[i]){
+                    res.add(nums1[i]);
+                    break;
+                }
+            }
+        }
+        int[] resArr=new int[res.size()];
+        for (int i=0;i<res.size();i++)
+            resArr[i]=res.get(i);
+        return resArr;
+    }
+
     @Test
     public void test(){
-        String s="A man, a plan, a canal -- Panama";
-        boolean palindrome = isPalindrome(s);
-        System.out.println(palindrome);
+        int[] nums1={4,9,5};
+        int[] nums2={9,4,9,8,4};
+        int[] res = intersection(nums1,nums2);
+        for (int k:res)
+            System.out.print(" "+k);
     }
 
 }
