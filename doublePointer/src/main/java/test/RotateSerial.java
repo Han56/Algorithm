@@ -2,6 +2,9 @@ package test;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author han56
  * @description 功能描述
@@ -50,15 +53,36 @@ public class RotateSerial {
         return ret;
     }
 
+    /*
+     * 剑指Offer 第六题：从尾到头打印链表
+     * */
+    public static int[] reversePrint(ListNode head){
+
+
+        //base case
+        if (head==null)
+            return new int[0];
+        List<Integer> res = new ArrayList<>();
+        ListNode p = head;
+        while (p!=null){
+            res.add(p.val);
+            p=p.next;
+        }
+        //reverse list
+        int[] resArr = new int[res.size()];
+        for (int i=0;i< res.size();i++)
+            resArr[i]=res.get(res.size()-1-i);
+        return resArr;
+    }
+
     @Test
     public void testRotateRight(){
         ListNode lisNode = new ListNode(1);
-        lisNode.next = new ListNode(2);
-        lisNode.next.next = new ListNode(3);
-/*        lisNode.next.next.next = new ListNode(4);
-        lisNode.next.next.next.next = new ListNode(5);*/
-        ListNode res = rotateRight(lisNode,2000000000);
-        outListNode(res);
+        lisNode.next = new ListNode(3);
+        lisNode.next.next = new ListNode(2);
+        int[] res=reversePrint(lisNode);
+        for (int k:res)
+            System.out.print(k);
     }
 
 }
