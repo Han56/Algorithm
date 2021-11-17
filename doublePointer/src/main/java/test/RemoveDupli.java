@@ -131,13 +131,29 @@ public class RemoveDupli {
         return resArr;
     }
 
+    /*
+    * 双指针——快慢指针
+    * 力扣80题：删除有序数组中的重复项2
+    * */
+    public static int removeDuplicates2(int[] nums){
+        int n = nums.length;
+        if (n<=2)
+            return n;
+        int slow=2,fast=2;
+        while (fast<n){
+            if (nums[slow-2]!=nums[fast]){
+                nums[slow]=nums[fast];
+                slow++;
+            }
+            fast++;
+        }
+        return slow;
+    }
+
     @Test
     public void test(){
-        int[] nums1={4,9,5};
-        int[] nums2={9,4,9,8,4};
-        int[] res = intersection(nums1,nums2);
-        for (int k:res)
-            System.out.print(" "+k);
+        int[] nums1={1,1,1,2,2,3};
+        System.out.println(removeDuplicates2(nums1));
     }
 
 }
