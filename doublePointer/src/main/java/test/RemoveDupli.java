@@ -150,10 +150,57 @@ public class RemoveDupli {
         return slow;
     }
 
+    /*
+    * 双指针——快慢指针
+    * 剑指offer 56题
+    * 数组中数字出现的次数1
+    * */
+    public static int[] singleNumbers(int[] nums){
+        int n= nums.length;
+        //base case
+        if (n==2){
+            if (nums[0]==nums[1])
+                return new int[0];
+            return nums;
+        }
+        Arrays.sort(nums);
+        int slow=0,fast=1;
+        List<Integer> resList = new ArrayList<>();
+        while (fast<n){
+            if (resList.size()==2)
+                break;
+            if (nums[slow]!=nums[fast]){
+                if ((fast-slow)==1){
+                    resList.add(nums[slow]);
+                    slow++;
+                }
+                else {
+                    slow=fast;
+                    if (slow== nums.length-1)
+                        resList.add(nums[slow]);
+                }
+            }
+            fast++;
+        }
+        int[] resArr = new int[resList.size()];
+        for (int i=0;i<resList.size();i++)
+            resArr[i]=resList.get(i);
+        return resArr;
+    }
+
+    /*
+    * 双指针——快慢指针
+    * 剑指offer 56题
+    * 数组中数字出现的次数2
+    * */
+    
+
     @Test
     public void test(){
-        int[] nums1={1,1,1,2,2,3};
-        System.out.println(removeDuplicates2(nums1));
+        int[] nums1={1,2,10,4,1,4,3,3};
+        int[] res=singleNumbers(nums1);
+        for (int i:res)
+            System.out.print(" "+i);
     }
 
 }
